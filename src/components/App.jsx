@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
@@ -17,17 +16,24 @@ export class App extends Component {
     number: '',
   };
   addContact = newContact => {
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+    if (this.checkContactNameRepeat(newContact.name)) {
+      alert(`${newContact.name} already exists`);
+    } else {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }));
+    }
+  };
+  checkContactNameRepeat = name => {
+    const temporaryNameArray = this.state.contacts.map(item => item.name);
+    // console.log(temporaryNameArray);
+    return temporaryNameArray.includes(name);
   };
 
-  deleteContact = contactId => {
+  onDeleteContact = index => {
     this.setState(prevState => {
       return {
-        contacts: prevState.contacts.filter(
-          contact => contact.id !== contactId
-        ),
+        contacts: prevState.contacts.filter(element => element.id !== index),
       };
     });
   };
@@ -36,7 +42,7 @@ export class App extends Component {
       item.name.toLowerCase().includes(this.state.filter.toLowerCase().trim())
     );
   };
-  handleChange = event => {
+  handleChangeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
   };
 
@@ -47,8 +53,14 @@ export class App extends Component {
         <ContactForm addContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter handleChange={this.handleChange} value={this.state.filter} />
-        <ContactList contacts={this.handleFilterContacts()} />
+        <Filter
+          handleChange={this.handleChangeFilter}
+          value={this.state.filter}
+        />
+        <ContactList
+          contacts={this.handleFilterContacts()}
+          onDeleteContact={this.onDeleteContact}
+        />
       </div>
     );
   }

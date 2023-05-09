@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ contacts }) => {
-  console.log(contacts);
+export const ContactList = ({ contacts, onDeleteContact }) => {
   return (
     <ul>
       {contacts.map(({ id, name, number }) => {
@@ -10,7 +9,9 @@ export const ContactList = ({ contacts }) => {
           <li key={id}>
             <p>{name}: </p>
             <p>{number}</p>
-            <button type="button">Delete</button>
+            <button type="button" onClick={() => onDeleteContact(id)}>
+              Delete
+            </button>
           </li>
         );
       })}
@@ -18,6 +19,13 @@ export const ContactList = ({ contacts }) => {
   );
 };
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+// ContactList.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+//   onDeleteContact: PropTypes.func.isRequired,
+// };

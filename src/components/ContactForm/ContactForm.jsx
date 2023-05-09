@@ -12,17 +12,19 @@ export class ContactForm extends Component {
     });
   };
   handleSubmitForm = event => {
-    console.log(this.state);
     event.preventDefault();
     const newContact = {
       id: nanoid(3),
       ...this.state,
     };
     this.props.addContact(newContact);
+    this.resetState();
     //cleaning form reset
+    // this.setState({ name: '', number: '' });
+  };
+  resetState = () => {
     this.setState({ name: '', number: '' });
   };
-
   render() {
     return (
       <form onSubmit={this.handleSubmitForm}>
