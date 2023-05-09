@@ -33,5 +33,6 @@ export const AddcontactBtn = styled.button`
   justify-content: center;
   max-width: 150px;
   padding: 8px;
+  border: 1px solid white;
   border-radius: 5px;
 `;
