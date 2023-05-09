@@ -5,7 +5,7 @@ export const List = styled.ul`
   padding: 0px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
 `;
 
