@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { nanoid } from 'nanoid';
-// import { ContactForm } from './ContactForm/ContactForm';
-import Filter from './Filter/Filter';
+
+import { ContactForm } from './ContactForm/ContactForm';
+import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
 export class App extends Component {
@@ -16,13 +16,12 @@ export class App extends Component {
     name: '',
     number: '',
   };
-  addContact = contact => {
-    this.setState(prevState => {
-      return {
-        contacts: [...prevState.contacts, contact],
-      };
-    });
+  addContact = newContact => {
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
   };
+
   deleteContact = contactId => {
     this.setState(prevState => {
       return {
@@ -32,29 +31,24 @@ export class App extends Component {
       };
     });
   };
-
-  handleChangeInput = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+  handleFilterContacts = () => {
+    return this.state.contacts.filter(item =>
+      item.name.toLowerCase().includes(this.state.filter.toLowerCase().trim())
+    );
   };
-  // onSubmitForm = e => {
-  //   e.preventDefault();
-  //   const word = {
-  //     id: nanoid(3),
-  //     ...this.state,
-  //   };
-  // };
+  handleChange = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
 
   render() {
     return (
       <div>
         <h1>Phonebook</h1>
-        {/* <ContactForm addContact={this.addContact} /> */}
+        <ContactForm addContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter />
-        <ContactList contacts={this.state.contacts} />
+        <Filter handleChange={this.handleChange} value={this.state.filter} />
+        <ContactList contacts={this.handleFilterContacts()} />
       </div>
     );
   }
