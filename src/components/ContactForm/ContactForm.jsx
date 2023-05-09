@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 export class ContactForm extends Component {
   state = {
@@ -59,4 +60,4 @@ export class ContactForm extends Component {
     );
   }
 }
-ContactForm.propTypes = {};
+ContactForm.propTypes = { addContact: PropTypes.func.isRequired };
