@@ -1,8 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Wrapper, Label, SearchInput } from './Filter.styled';
 
 export const Filter = ({ handleChange, value }) => {
-  return <input onChange={handleChange} value={value} placeholder="Search" />;
+  return (
+    <Wrapper>
+      <Label htmlFor="">
+        Search name
+        <SearchInput
+          onChange={handleChange}
+          value={value}
+          placeholder="Search"
+        />
+      </Label>
+    </Wrapper>
+  );
 };
 
 Filter.propTypes = {
