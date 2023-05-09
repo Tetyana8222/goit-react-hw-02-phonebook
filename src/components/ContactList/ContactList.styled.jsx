@@ -10,7 +10,7 @@ export const List = styled.ul`
 `;
 
 export const ContactCard = styled.li`
-  width: 150px;
+  width: 205px;
   height: auto;
   padding: 8px;
   border: 1px solid white;
